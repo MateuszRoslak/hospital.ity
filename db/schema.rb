@@ -37,6 +37,11 @@ ActiveRecord::Schema.define(version: 2021_12_11_155325) do
 
   create_table "rooms", force: :cascade do |t|
     t.string "name", null: false
+    t.integer "beds", default: 0
+    t.integer "patients", default: 0
+    t.boolean "tv", default: false
+    t.boolean "fire_extinguisher", default: false
+    t.datetime "last_cleaned", default: "2021-12-29 15:31:47"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -46,6 +51,7 @@ ActiveRecord::Schema.define(version: 2021_12_11_155325) do
     t.string "encrypted_password", default: "", null: false
     t.string "name", null: false
     t.string "surname", null: false
+    t.integer "role", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

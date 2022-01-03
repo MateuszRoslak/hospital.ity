@@ -1,0 +1,18 @@
+<%= form_for @user, url: employee_path(@user), html: { method: :put } do |form| %>
+
+  <%= form.select :role,
+                  [
+                    ['Inactive', 'inactive'],
+                    ['Inspector', 'inspector'],
+                    ['Security guard', 'guard'],
+                    ['Janitor', 'janitor'],
+                    ['Doctor', 'doctor'],
+                    ['Nurse', 'nurse'],
+                    ['Office', 'office']
+                  ], {}, {class: "form-group form-select form-select-lg mb-3"} %>
+
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
