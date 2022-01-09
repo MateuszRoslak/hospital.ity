@@ -1,6 +1,9 @@
 <% if user_signed_in? %>
   <h1>Hello <%= current_user.name %>!</h1>
   <h2>Welcome to Hospital.ity Management System.</h2>
+  <% if current_user.role_inactive? %>
+    <h3>Your account is deactivated, please contact system administrator.</h3>
+  <% end %>
 <% else %>
   <h1>Hello, please sign in or sign up to use the system.</h1>
 <% end %>

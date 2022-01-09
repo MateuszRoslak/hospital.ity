@@ -1,8 +1,11 @@
 class EmployeesController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  before_action :authenticate_user!
+  before_action :correct_user
 
   def index
-    @users = User.all
+    @q = User.ransack(params[:q])
+    @users = @q.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
   end
 
   def show
@@ -39,6 +42,12 @@ class EmployeesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def user_params
-    params.require(:user).permit(:role)
+    params.require(:user).permit(:role, :sort)
+  end
+
+  def correct_user
+    unless current_user.role_admin?
+      redirect_to root_path, notice: "You are not authorized!"
+    end
   end
 end

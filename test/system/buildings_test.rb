@@ -14,6 +14,7 @@ class BuildingsTest < ApplicationSystemTestCase
     visit buildings_url
     click_on "New Building"
 
+    fill_in "Name", with: @building.name
     click_on "Create Building"
 
     assert_text "Building was successfully created"
@@ -24,6 +25,7 @@ class BuildingsTest < ApplicationSystemTestCase
     visit buildings_url
     click_on "Edit", match: :first
 
+    fill_in "Name", with: @building.name
     click_on "Update Building"
 
     assert_text "Building was successfully updated"

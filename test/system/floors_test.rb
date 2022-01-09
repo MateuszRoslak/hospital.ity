@@ -14,6 +14,8 @@ class FloorsTest < ApplicationSystemTestCase
     visit floors_url
     click_on "New Floor"
 
+    fill_in "Building", with: @floor.building_id
+    fill_in "Name", with: @floor.name
     click_on "Create Floor"
 
     assert_text "Floor was successfully created"
@@ -24,6 +26,8 @@ class FloorsTest < ApplicationSystemTestCase
     visit floors_url
     click_on "Edit", match: :first
 
+    fill_in "Building", with: @floor.building_id
+    fill_in "Name", with: @floor.name
     click_on "Update Floor"
 
     assert_text "Floor was successfully updated"

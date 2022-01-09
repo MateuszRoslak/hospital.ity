@@ -6,12 +6,15 @@
     <%= @user.surname %>
   </h1>
   <p class="lead">
-    <%= @user.email %>
+    <%= "Email: " + @user.email %>
     <br/>
-    <%= @user.role %>
+    <%= "Role: " %>
+
   </p>
 </div>
 
 <%= render 'form', user: @user %>
+
+<%= button_to "Delete account", employee_path(@user), data: { confirm: "Are you sure?" }, method: :delete %>
 
 <%= link_to 'Back', employees_path %>

@@ -5,9 +5,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :jwt_authenticatable, jwt_revocation_strategy: JwtDenylist
 
-  enum role: [:inactive, :admin, :inspector, :guard, :janitor, :doctor, :nurse, :office]
+  enum role: [:inactive, :admin, :inspector, :guard, :janitor, :doctor, :nurse, :office, :technic], _prefix: true
 
   after_initialize :set_default_role, :if => :new_record?
+
+  validates :name, presence: true
+  validates :surname, presence: true
 
   def set_default_role
     self.role ||= :admin

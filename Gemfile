@@ -28,6 +28,8 @@ gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'devise-jwt'
 gem 'dotenv-rails'
+gem 'ransack'
+gem 'will_paginate'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'

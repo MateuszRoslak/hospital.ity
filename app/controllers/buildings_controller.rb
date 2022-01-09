@@ -64,6 +64,6 @@ class BuildingsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def building_params
-      params.fetch(:building, {})
+      params.require(:building).permit(:name)
     end
 end

@@ -64,6 +64,6 @@ class FloorsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def floor_params
-      params.fetch(:floor, {})
+      params.require(:floor).permit(:name, :building_id)
     end
 end

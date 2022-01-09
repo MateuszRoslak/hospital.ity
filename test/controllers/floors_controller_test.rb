@@ -17,7 +17,7 @@ class FloorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create floor" do
     assert_difference('Floor.count') do
-      post floors_url, params: { floor: {  } }
+      post floors_url, params: { floor: { building_id: @floor.building_id, name: @floor.name } }
     end
 
     assert_redirected_to floor_url(Floor.last)
@@ -34,7 +34,7 @@ class FloorsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update floor" do
-    patch floor_url(@floor), params: { floor: {  } }
+    patch floor_url(@floor), params: { floor: { building_id: @floor.building_id, name: @floor.name } }
     assert_redirected_to floor_url(@floor)
   end
 

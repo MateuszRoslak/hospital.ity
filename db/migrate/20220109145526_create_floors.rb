@@ -1,7 +1,8 @@
 class CreateFloors < ActiveRecord::Migration[6.1]
   def change
     create_table :floors do |t|
-      t.string :name, null: false
+      t.string :name
+      t.references :building, null: false, foreign_key: true
 
       t.timestamps
     end
