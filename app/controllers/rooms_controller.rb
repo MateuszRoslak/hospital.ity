@@ -1,31 +1,30 @@
 class RoomsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :correct_user
+  before_action :set_building_floor_and_ward
   before_action :set_room, only: %i[ show edit update destroy ]
 
-  # GET /rooms or /rooms.json
   def index
-    @rooms = Room.all
+    @q = @ward.rooms.ransack(params[:q])
+    @rooms = @q.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
   end
 
-  # GET /rooms/1 or /rooms/1.json
   def show
   end
 
-  # GET /rooms/new
   def new
-    @room = Room.new
+    @room = @ward.rooms.new
   end
 
-  # GET /rooms/1/edit
   def edit
   end
 
-  # POST /rooms or /rooms.json
   def create
-    @room = Room.new(room_params)
+    @room = @ward.rooms.new(room_params)
 
     respond_to do |format|
       if @room.save
-        format.html { redirect_to @room, notice: "Room was successfully created." }
+        format.html { redirect_to building_floor_ward_room_path(@building, @floor, @ward, @room), notice: "Room was successfully created." }
         format.json { render :show, status: :created, location: @room }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,11 +33,10 @@ class RoomsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /rooms/1 or /rooms/1.json
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to @room, notice: "Room was successfully updated." }
+        format.html { redirect_to building_floor_ward_path(@building, @floor, @ward, @room), notice: "Room was successfully updated." }
         format.json { render :show, status: :ok, location: @room }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,23 +45,33 @@ class RoomsController < ApplicationController
     end
   end
 
-  # DELETE /rooms/1 or /rooms/1.json
   def destroy
     @room.destroy
     respond_to do |format|
-      format.html { redirect_to rooms_url, notice: "Room was successfully destroyed." }
+      format.html { redirect_to building_floor_ward_rooms_url, notice: "Room was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_room
-      @room = Room.find(params[:id])
-    end
+  
+  def set_room
+    @room = @ward.rooms.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def room_params
-      params.require(:room).permit(:name, :floor_id)
+  def set_building_floor_and_ward
+    @building = Building.find(params[:building_id])
+    @floor = @building.floors.find(params[:floor_id])
+    @ward = @floor.wards.find(params[:ward_id])
+  end
+  
+  def room_params
+    params.require(:room).permit(:name, :building_id, :floor_id, :ward_id)
+  end
+
+  def correct_user
+    unless current_user.role_admin?
+      redirect_to root_path, notice: "You are not authorized!"
     end
+  end
 end

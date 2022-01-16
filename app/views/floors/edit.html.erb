@@ -2,5 +2,5 @@
 
 <%= render 'form', floor: @floor %>
 
-<%= link_to 'Show', @floor %> |
-<%= link_to 'Back', floors_path %>
+<%= link_to 'Show', building_floor_path(@building, @floor) %> |
+<%= link_to 'Back', building_floors_path %>

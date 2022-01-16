@@ -1,14 +1,12 @@
-<p id="notice"><%= notice %></p>
-
 <p>
   <strong>Name:</strong>
   <%= @room.name %>
 </p>
 
 <p>
-  <strong>Floor:</strong>
-  <%= @room.floor_id %>
+  <strong>Ward:</strong>
+  <%= @ward.name %>
 </p>
 
-<%= link_to 'Edit', edit_room_path(@room) %> |
-<%= link_to 'Back', rooms_path %>
+<%= link_to 'Edit', edit_building_floor_ward_room_path(@room) %> |
+<%= link_to 'Back', building_floor_ward_rooms_path %>

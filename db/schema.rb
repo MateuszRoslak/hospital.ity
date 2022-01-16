@@ -10,21 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_11_155325) do
+ActiveRecord::Schema.define(version: 2022_01_14_162511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "buildings", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "floors", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
+    t.bigint "building_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["building_id"], name: "index_floors_on_building_id"
   end
 
   create_table "jwt_denylists", force: :cascade do |t|
@@ -36,14 +38,11 @@ ActiveRecord::Schema.define(version: 2021_12_11_155325) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "beds", default: 0
-    t.integer "patients", default: 0
-    t.boolean "tv", default: false
-    t.boolean "fire_extinguisher", default: false
-    t.datetime "last_cleaned", default: "2021-12-29 15:31:47"
+    t.string "name"
+    t.bigint "ward_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["ward_id"], name: "index_rooms_on_ward_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -61,4 +60,15 @@ ActiveRecord::Schema.define(version: 2021_12_11_155325) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wards", force: :cascade do |t|
+    t.string "name"
+    t.bigint "floor_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["floor_id"], name: "index_wards_on_floor_id"
+  end
+
+  add_foreign_key "floors", "buildings"
+  add_foreign_key "rooms", "wards"
+  add_foreign_key "wards", "floors"
 end

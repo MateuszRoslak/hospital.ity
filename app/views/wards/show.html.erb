@@ -1,0 +1,12 @@
+<p>
+  <strong>Name:</strong>
+  <%= @ward.name %>
+</p>
+
+<p>
+  <strong>Floor:</strong>
+  <%= @ward.floor_id %>
+</p>
+
+<%= link_to 'Edit', edit_building_floor_ward_path(@ward) %> |
+<%= link_to 'Back', building_floor_wards_path %>

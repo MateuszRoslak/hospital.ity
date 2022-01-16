@@ -1,6 +1,6 @@
-class CreateRooms < ActiveRecord::Migration[6.1]
+class CreateWards < ActiveRecord::Migration[6.1]
   def change
-    create_table :rooms do |t|
+    create_table :wards do |t|
       t.string :name
       t.references :floor, null: false, foreign_key: true
 

@@ -1,5 +1,5 @@
-<h1>New Floor</h1>
+<h1>New Floor in Building <%= @building.name  %></h1>
 
 <%= render 'form', floor: @floor %>
 
-<%= link_to 'Back', floors_path %>
+<%= link_to 'Back', building_floors_path %>

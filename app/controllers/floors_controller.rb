@@ -1,31 +1,29 @@
 class FloorsController < ApplicationController
+  before_action :set_building
   before_action :set_floor, only: %i[ show edit update destroy ]
-
-  # GET /floors or /floors.json
+  before_action :correct_user
+  
   def index
-    @floors = Floor.all
+    @q = @building.floors.ransack(params[:q])
+    @floors = @q.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
   end
 
-  # GET /floors/1 or /floors/1.json
   def show
   end
 
-  # GET /floors/new
   def new
-    @floor = Floor.new
+    @floor = @building.floors.new
   end
 
-  # GET /floors/1/edit
   def edit
   end
 
-  # POST /floors or /floors.json
   def create
-    @floor = Floor.new(floor_params)
+    @floor = @building.floors.new(floor_params)
 
     respond_to do |format|
       if @floor.save
-        format.html { redirect_to @floor, notice: "Floor was successfully created." }
+        format.html { redirect_to building_floor_path(@building, @floor), notice: "Floor was successfully created." }
         format.json { render :show, status: :created, location: @floor }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -34,11 +32,10 @@ class FloorsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /floors/1 or /floors/1.json
   def update
     respond_to do |format|
       if @floor.update(floor_params)
-        format.html { redirect_to @floor, notice: "Floor was successfully updated." }
+        format.html { redirect_to building_floor_path(@building, @floor), notice: "Floor was successfully updated." }
         format.json { render :show, status: :ok, location: @floor }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -47,23 +44,31 @@ class FloorsController < ApplicationController
     end
   end
 
-  # DELETE /floors/1 or /floors/1.json
   def destroy
     @floor.destroy
     respond_to do |format|
-      format.html { redirect_to floors_url, notice: "Floor was successfully destroyed." }
+      format.html { redirect_to building_floors_url, notice: "Floor was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_floor
-      @floor = Floor.find(params[:id])
+      @building = Building.find(params[:building_id])
+      @floor = @building.floors.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+    def set_building
+      @building = Building.find(params[:building_id])
+    end
+
     def floor_params
       params.require(:floor).permit(:name, :building_id)
+    end
+
+    def correct_user
+      unless current_user.role_admin?
+        redirect_to root_path, notice: "You are not authorized!"
+      end
     end
 end

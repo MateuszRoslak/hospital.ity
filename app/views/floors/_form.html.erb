@@ -1,24 +1,8 @@
-<%= form_with(model: floor) do |form| %>
-  <% if floor.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(floor.errors.count, "error") %> prohibited this floor from being saved:</h2>
-
-      <ul>
-        <% floor.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+<%= form_with model: [@building, @floor].compact, local: true do |form| %>
 
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :building_id %>
-    <%= form.text_field :building_id %>
   </div>
 
   <div class="actions">
