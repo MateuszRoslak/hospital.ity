@@ -1,0 +1,51 @@
+<h1>Devices</h1>
+
+<%= search_form_for @q, url: devices_path do |f| %>
+
+  <%= f.search_field :name_cont, placeholder: "Search phrase..." %>
+  <%= f.select :device_type_eq, options_for_select([
+                                              ['Any type...', ''],
+                                              ['Bed', 0],
+                                              ['TV', 1],
+                                              ['ECG', 2],
+                                              ['RTG', 3],
+                                              ['Computer', 4],
+                                              ['Printer', 5],
+                                              ['Extinguisher', 6],
+                                              ['Defibrillator', 7]
+                                            ])%>
+  <%= f.submit name: '' %>
+<% end %>
+<br/>
+<button type="button" class="btn btn-secondary btn-sm"><%= link_to 'Add Device', new_device_path, :class => "btn" %></button>
+<br/>
+<br/>
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr class="table-dark">
+      <th><%= sort_link(@q, :name, "Name",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :model, "Model",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :manufacturer, "Manufacturer",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :device_type, "Device type",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :room_id, "Room",{}, { class: "link-light" }) %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @devices.each do |device| %>
+      <tr>
+        <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to device.name, device, :class => "btn" %></button></td>
+        <td><%= device.model %></td>
+        <td><%= device.manufacturer %></td>
+        <td><%= device.device_type %></td>
+        <td>
+          <% if device.room.present? %>
+            <%= device.room.name %>
+          <% else %>
+            None
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

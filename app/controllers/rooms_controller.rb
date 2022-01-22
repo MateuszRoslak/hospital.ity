@@ -36,7 +36,7 @@ class RoomsController < ApplicationController
   def update
     respond_to do |format|
       if @room.update(room_params)
-        format.html { redirect_to building_floor_ward_path(@building, @floor, @ward, @room), notice: "Room was successfully updated." }
+        format.html { redirect_to building_floor_ward_room_path(@building, @floor, @ward, @room), notice: "Room was successfully updated." }
         format.json { render :show, status: :ok, location: @room }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -66,7 +66,7 @@ class RoomsController < ApplicationController
   end
   
   def room_params
-    params.require(:room).permit(:name, :building_id, :floor_id, :ward_id)
+    params.require(:room).permit(:name, :building_id, :floor_id, :ward_id, :room_type)
   end
 
   def correct_user

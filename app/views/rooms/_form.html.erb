@@ -16,6 +16,19 @@
     <%= form.text_field :name %>
   </div>
 
+  <div class="field">
+    <%= form.label :room_type %>
+    <%= form.select :room_type,
+                    [
+                      ['Patient room', 'patients'],
+                      ['Toilet', 'toilet'],
+                      ['Storage room', 'storage'],
+                      ['Office', 'office'],
+                      ['Surgery room', 'surgery'],
+                      ['Post surgery room', 'post_surgery'],
+                    ], {}, {class: "form-group form-select form-select-lg mb-3"} %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

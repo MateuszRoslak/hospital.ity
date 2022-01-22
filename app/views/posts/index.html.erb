@@ -1,0 +1,33 @@
+<h1>Posts</h1>
+
+<%= search_form_for @q, url: posts_path do |f| %>
+
+  <%= f.search_field :title_or_message_cont, placeholder: "Search phrase..." %>
+
+  <%= f.submit name: '' %>
+<% end %>
+<br/>
+<button type="button" class="btn btn-secondary btn-sm"><%= link_to 'Add post', new_post_path, :class => "btn" %></button>
+<br/>
+<br/>
+<table class="table table-striped table-bordered table-hover">
+  <thead>
+    <tr class="table-dark">
+      <th><%= sort_link(@q, :title, "Title",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :created_at, "Created at",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :public, "Public",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :user.name, "Author",{}, { class: "link-light" }) %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @posts.each do |post| %>
+      <tr>
+        <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to post.title, post_path(post), :class => "btn" %></button></td>
+        <td><%= post.created_at.to_s(:db) %></td>
+        <td><%= post.public %></td>
+        <td><%= post.user.name %> <%= post.user.surname %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

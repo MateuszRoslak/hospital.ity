@@ -7,6 +7,10 @@
   <%= f.submit name: '' %>
 <% end %>
 <br/>
+<button type="button" class="btn btn-secondary btn-sm"><%= link_to '<- Floors', building_floors_path, :class => "btn" %></button>
+<button type="button" class="btn btn-secondary btn-sm"><%= link_to 'Add Ward', new_building_floor_ward_path, :class => "btn" %></button>
+<br/>
+<br/>
 
 <table class="table table-striped table-bordered table-hover">
   <thead>
@@ -19,15 +23,9 @@
   <tbody>
     <% @wards.each do |ward| %>
       <tr>
-        <td><%= link_to ward.name, building_floor_ward_path(@building, @floor, ward) %></td>
-        <td><%= link_to ward.rooms.count, building_floor_ward_rooms_path(@building, @floor, ward) %></td>
+        <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to ward.name, building_floor_ward_path(@building, @floor, ward), :class => "btn" %></button></td>
+        <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to ward.rooms.count, building_floor_ward_rooms_path(@building, @floor, ward), :class => "btn" %></button></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Ward', new_building_floor_ward_path %>
-<br/>
-<%= link_to 'Floors', building_floors_path %>

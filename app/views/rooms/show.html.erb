@@ -8,5 +8,14 @@
   <%= @ward.name %>
 </p>
 
-<%= link_to 'Edit', edit_building_floor_ward_room_path(@room) %> |
+<p>
+  <strong>Last cleaned:</strong>
+  <%= @room.last_cleaned %>
+</p>
+
+<p>
+  <strong>Last cleaned by:</strong>
+  <%= @room.last_cleaned_by %>
+</p>
+<%= link_to 'Edit', edit_building_floor_ward_room_path(@building, @floor, @ward, @room) %> |
 <%= link_to 'Back', building_floor_ward_rooms_path %>

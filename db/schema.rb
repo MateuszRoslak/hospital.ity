@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_14_162511) do
+ActiveRecord::Schema.define(version: 2022_01_20_161019) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,6 +19,17 @@ ActiveRecord::Schema.define(version: 2022_01_14_162511) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "devices", force: :cascade do |t|
+    t.string "name"
+    t.string "model"
+    t.string "manufacturer"
+    t.integer "device_type"
+    t.bigint "room_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["room_id"], name: "index_devices_on_room_id"
   end
 
   create_table "floors", force: :cascade do |t|
@@ -37,8 +48,21 @@ ActiveRecord::Schema.define(version: 2022_01_14_162511) do
     t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
+  create_table "posts", force: :cascade do |t|
+    t.string "title"
+    t.text "message"
+    t.boolean "public"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.string "name"
+    t.date "last_cleaned"
+    t.integer "last_cleaned_by"
+    t.integer "room_type"
     t.bigint "ward_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -68,7 +92,9 @@ ActiveRecord::Schema.define(version: 2022_01_14_162511) do
     t.index ["floor_id"], name: "index_wards_on_floor_id"
   end
 
+  add_foreign_key "devices", "rooms"
   add_foreign_key "floors", "buildings"
+  add_foreign_key "posts", "users"
   add_foreign_key "rooms", "wards"
   add_foreign_key "wards", "floors"
 end

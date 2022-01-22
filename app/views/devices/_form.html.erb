@@ -1,0 +1,56 @@
+<%= form_with(model: device) do |form| %>
+  <% if device.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(device.errors.count, "error") %> prohibited this device from being saved:</h2>
+
+      <ul>
+        <% device.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :model %>
+    <%= form.text_field :model %>
+  </div>
+
+  <div class="field">
+    <%= form.label :manufacturer %>
+    <%= form.text_field :manufacturer %>
+  </div>
+
+  <div class="field">
+    <%= form.label :device_type %>
+    <%= form.select :device_type,
+                  [
+                    ['Bed', 'bed'],
+                    ['TV', 'tv'],
+                    ['ECG', 'ecg'],
+                    ['RTG', 'rtg'],
+                    ['Computer', 'computer'],
+                    ['Printer', 'printer'],
+                    ['Fire extinguisher', 'extinguisher'],
+                    ['Defibrillator', 'defibrillator'],
+                    ['Other', 'other']
+                  ], {}, {class: "form-group form-select form-select-lg mb-3"} %>
+  </div>
+
+  <div class="field">
+    <% grouped_options_for_select = Ward.all.collect {|w| [w.name + " ward",  w.rooms.collect {|r| [ r.name, r.id ] }]} %>
+    <% grouped_options_for_select << ['None', [['Storage', nil]]] %>
+    <%= form.label :room_id %>
+    <%= form.select :room_id, grouped_options_for_select(grouped_options_for_select), {}, {class: "form-group form-select form-select-lg mb-3"} %>
+    <%#= form.select :room_id, options_from_collection_for_select(Room.all, 'id', 'name'), {}, {class: "form-group form-select form-select-lg mb-3"} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <%= link_to 'Hospital.ity',root_path, class:"navbar-brand" %>
+    <%= link_to 'Hospital.ity',root_path, class:"navbar-brand ps-3" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -13,21 +13,18 @@
             <li class="nav-item">
               <%= link_to 'Hospital structure', buildings_path, class:"nav-link" %>
             </li>
+            <li class="nav-item">
+              <%= link_to 'Devices', devices_path, class:"nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Posts', posts_path, class:"nav-link" %>
+            </li>
+            <% else if current_user.role_office?  %>
+              <li class="nav-item">
+                <%= link_to 'Posts', posts_path, class:"nav-link" %>
+              </li>
+            <% end %>
           <% end %>
-          <li class="nav-item navbar-nav§ dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              User
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li class="dropdown-item">
-                <%= link_to 'Edit Profile', edit_user_registration_path, class:"dropdown-item" %>
-              </li>
-              <li><hr class="dropdown-divider"></li>
-              <li class="dropdown-item">
-                <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class:"dropdown-item" %>
-              </li>
-            </ul>
-          </li>
         <% else %>
           <li class="nav-item">
             <%= link_to 'Log In', new_user_session_path, class:"nav-link" %>
@@ -36,6 +33,24 @@
             <%= link_to 'Sign Up', new_user_registration_path, class:"nav-link" %>
           </li>
         <% end %>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+        <li class="nav-item navbar-nav dropdown">
+          <a class="pe-3 nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            User
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" >
+            <li class="dropdown-item">
+              <%= link_to 'Edit Profile', edit_user_registration_path, class:"dropdown-item" %>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li class="dropdown-item">
+              <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class:"dropdown-item" %>
+            </li>
+          </ul>
+        </li>
+          <% end %>
       </ul>
     </div>
 </nav>
