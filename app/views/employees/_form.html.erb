@@ -3,16 +3,15 @@
   <%= form.select :role,
                   [
                     ['Inactive', 'inactive'],
+                    ['Admin', 'admin'],
                     ['Inspector', 'inspector'],
                     ['Security guard', 'guard'],
                     ['Janitor', 'janitor'],
                     ['Doctor', 'doctor'],
                     ['Nurse', 'nurse'],
                     ['Office', 'office'],
-                    ['Admin', 'admin'],
                     ['Technic', 'technic']
                   ], {}, {class: "form-group form-select form-select-lg mb-3"} %>
-
 
   <div class="actions">
     <%= form.submit %>

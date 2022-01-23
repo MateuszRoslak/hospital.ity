@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :inspections
   resources :posts
   resources :devices
   resources :buildings do

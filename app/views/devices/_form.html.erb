@@ -27,6 +27,18 @@
   </div>
 
   <div class="field">
+  <%= form.label :status %>
+  <%= form.select :status,
+                  [
+                    ['Fine', 'fine'],
+                    ['Broken', 'broken'],
+                    ['Outdated', 'outdated'],
+                    ['Contaminated', 'contaminated'],
+                    ['Other', 'other']
+                  ], {}, {class: "form-group form-select form-select-lg mb-3"} %>
+</div>
+
+  <div class="field">
     <%= form.label :device_type %>
     <%= form.select :device_type,
                   [
@@ -47,7 +59,6 @@
     <% grouped_options_for_select << ['None', [['Storage', nil]]] %>
     <%= form.label :room_id %>
     <%= form.select :room_id, grouped_options_for_select(grouped_options_for_select), {}, {class: "form-group form-select form-select-lg mb-3"} %>
-    <%#= form.select :room_id, options_from_collection_for_select(Room.all, 'id', 'name'), {}, {class: "form-group form-select form-select-lg mb-3"} %>
   </div>
 
   <div class="actions">

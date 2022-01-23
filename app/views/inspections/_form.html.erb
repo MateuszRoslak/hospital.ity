@@ -1,0 +1,34 @@
+<%= form_with(model: inspection) do |form| %>
+  <% if inspection.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(inspection.errors.count, "error") %> prohibited this inspection from being saved:</h2>
+
+      <ul>
+        <% inspection.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div class="field">
+    <% grouped_options_for_select = [['Inspectors', User.all.where(role: "inspector").collect {|u| [ u.name + " " + u.surname, u.id ] }]] %>
+    <% grouped_options_for_select << ['Technicians', User.all.where(role: "technic").collect {|u| [ u.name + " " + u.surname, u.id ] }] %>
+    <%= form.label :user_id, "Employee delegated:" %>
+    <%= form.select :user_id, grouped_options_for_select(grouped_options_for_select), {}, {class: "form-group form-select form-select-lg mb-3"} %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

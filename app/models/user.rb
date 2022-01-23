@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :surname, presence: true
+  
+  has_many :inspections
 
   def set_default_role
     self.role ||= :admin

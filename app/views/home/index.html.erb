@@ -8,7 +8,9 @@
   <h1>Hello, please sign in or sign up to use the system.</h1>
 <% end %>
 <br/>
-<h1>System announcements:</h1>
+<div class="card">
+  <h3 class="card-header">System announcements</h3>
+  <div class="card-body">
 <div class="accordion" id="accordionNews">
   <% @posts.all.order("created_at DESC").each do |post| %>
     <div class="accordion-item">
@@ -25,4 +27,6 @@
     </div>
   </div>
 <% end %>
+</div>
+  </div>
 </div>

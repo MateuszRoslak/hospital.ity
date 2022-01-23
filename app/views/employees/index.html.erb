@@ -32,7 +32,7 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.name + ' ' + user.surname, edit_employee_path(user) %></td>
+        <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to user.name + ' ' + user.surname, edit_employee_path(user), :class => "btn" %></button></td>
         <td><%= user.email %></td>
         <td><%= user.role %></td>
       </tr>

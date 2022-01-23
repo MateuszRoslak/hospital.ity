@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_20_161019) do
+ActiveRecord::Schema.define(version: 2022_01_22_120202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_161019) do
     t.string "model"
     t.string "manufacturer"
     t.integer "device_type"
+    t.integer "status"
     t.bigint "room_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -38,6 +39,17 @@ ActiveRecord::Schema.define(version: 2022_01_20_161019) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["building_id"], name: "index_floors_on_building_id"
+  end
+
+  create_table "inspections", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.bigint "user_id", null: false
+    t.boolean "completed", default: false
+    t.text "notes"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_inspections_on_user_id"
   end
 
   create_table "jwt_denylists", force: :cascade do |t|
@@ -94,6 +106,7 @@ ActiveRecord::Schema.define(version: 2022_01_20_161019) do
 
   add_foreign_key "devices", "rooms"
   add_foreign_key "floors", "buildings"
+  add_foreign_key "inspections", "users"
   add_foreign_key "posts", "users"
   add_foreign_key "rooms", "wards"
   add_foreign_key "wards", "floors"

@@ -27,6 +27,7 @@
       <th><%= sort_link(@q, :model, "Model",{}, { class: "link-light" }) %></th>
       <th><%= sort_link(@q, :manufacturer, "Manufacturer",{}, { class: "link-light" }) %></th>
       <th><%= sort_link(@q, :device_type, "Device type",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :status, "Device status",{}, { class: "link-light" }) %></th>
       <th><%= sort_link(@q, :room_id, "Room",{}, { class: "link-light" }) %></th>
     </tr>
   </thead>
@@ -38,10 +39,11 @@
         <td><%= device.model %></td>
         <td><%= device.manufacturer %></td>
         <td><%= device.device_type %></td>
+        <td><%= device.status %></td>
         <td>
           <% if device.room.present? %>
-            <%= device.room.name %>
-          <% else %>
+            <%= device.room.name %> / <%= device.room.ward.name %>
+        <% else %>
             None
           <% end %>
         </td>
