@@ -2,6 +2,7 @@ class DevicesController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user
   before_action :set_device, only: %i[ show edit update destroy ]
+  
 
   def index
     @q = Device.all.ransack(params[:q])
@@ -9,6 +10,10 @@ class DevicesController < ApplicationController
   end
 
   def show
+  end
+
+  def generate_qr_code
+    send_data RQRCode::QRCode.new(device_params[:qr_link].to_s).as_png(size: 300), type: 'image/png', disposition: 'inline'
   end
 
   def new
@@ -58,7 +63,7 @@ class DevicesController < ApplicationController
     end
 
     def device_params
-      params.require(:device).permit(:name, :model, :manufacturer, :device_type, :room_id, :status)
+      params.require(:device).permit(:name, :model, :manufacturer, :device_type, :room_id, :status, :qr_link)
     end
 
     def correct_user

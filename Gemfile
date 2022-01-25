@@ -30,6 +30,8 @@ gem 'devise-jwt'
 gem 'dotenv-rails'
 gem 'ransack'
 gem 'will_paginate'
+gem "rqrcode", "~> 2.0"
+gem 'mini_magick'
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'

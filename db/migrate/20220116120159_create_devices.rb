@@ -6,6 +6,7 @@ class CreateDevices < ActiveRecord::Migration[6.1]
       t.string :manufacturer
       t.integer :device_type
       t.integer :status
+      t.string :serial_number
       t.references :room, null: true, foreign_key: true
 
       t.timestamps

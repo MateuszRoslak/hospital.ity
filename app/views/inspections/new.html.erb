@@ -1,5 +1,7 @@
-<h1>New Inspection</h1>
-
-<%= render 'form', inspection: @inspection %>
-
+<div class="card">
+  <h3 class="card-header">New inspection</h3>
+  <div class="card-body">
+    <%= render 'form', inspection: @inspection %>
+  </div>
+</div>
 <%= link_to 'Back', inspections_path %>

@@ -1,7 +1,7 @@
 class InspectionsController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user
-  before_action :set_inspection, only: %i[ show edit update destroy ]
+  before_action :set_inspection, only: %i[ show edit update destroy inspect ]
 
   def index
     if current_user.role_technic? || current_user.role_inspector?
@@ -20,6 +20,9 @@ class InspectionsController < ApplicationController
   end
 
   def edit
+  end
+
+  def inspect
   end
 
   def create
@@ -62,7 +65,7 @@ class InspectionsController < ApplicationController
     end
 
     def inspection_params
-      params.require(:inspection).permit(:title, :description, :user_id)
+      params.require(:inspection).permit(:title, :description, :user_id, :completed, :notes, :device_ids => [])
     end
 
   def correct_user

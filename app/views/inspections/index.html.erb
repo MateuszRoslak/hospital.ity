@@ -2,28 +2,50 @@
 <%= search_form_for @q, url: inspections_path do |f| %>
 
   <%= f.search_field :title_or_description_cont, placeholder: "Search phrase..." %>
+  <%= f.select :completed_eq, options_for_select([
+                                                     ['Any state...', ''],
+                                                     ['Completed', true],
+                                                     ['Not completed', false]
+                                                   ])%>
 
   <%= f.submit name: '' %>
 <% end %>
 <br/>
+<% unless current_user.role_technic? || current_user.role_inspector?%>
 <button type="button" class="btn btn-secondary btn-sm"><%= link_to 'New inspection', new_inspection_path, :class => "btn" %></button>
 <br/>
 <br/>
+<% end %>
+
 <table class="table table-striped table-bordered table-hover">
   <thead>
     <tr class="table-dark">
       <th><%= sort_link(@q, :title, "Title",{}, { class: "link-light" }) %></th>
+      <% unless current_user.role_technic? || current_user.role_inspector?%>
+        <th><%= sort_link(@q, :user_id, "Assigned employee",{}, { class: "link-light" }) %></th>
+      <% end %>
       <th><%= sort_link(@q, :created_at, "Comissioned on",{}, { class: "link-light" }) %></th>
-      <th><%= sort_link(@q, :user_id, "Assigned employee",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :completed, "Completed",{}, { class: "link-light" }) %></th>
+      <th><%= sort_link(@q, :created_at, "Completed on",{}, { class: "link-light" }) %></th>
     </tr>
   </thead>
 
   <tbody>
     <% @inspections.each do |inspection| %>
       <tr>
-        <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to inspection.title, inspection, :class => "btn" %></button></td>
+        <% if current_user.role_technic? || current_user.role_inspector?%>
+          <% if inspection.completed? %>
+            <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to inspection.title, inspect_inspection_path(inspection), :class => "btn" %></button></td>
+            <% else %>
+            <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to inspection.title, inspect_inspection_path(inspection), :class => "btn disabled" %></button></td>
+          <% end %>
+        <% else %>
+          <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to inspection.title, inspection, :class => "btn" %></button></td>
+          <td><%= inspection.user.name + ' ' + inspection.user.surname %></td>
+        <% end %>
         <td><%= inspection.created_at.to_s(:db) %></td>
-        <td><%= inspection.user.name + ' ' + inspection.user.surname %></td>
+        <td><%= inspection.completed %></td>
+        <td><%= inspection.created_at.to_s(:db) %></td>
       </tr>
     <% end %>
   </tbody>

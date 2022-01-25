@@ -1,19 +1,53 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+  <h3 class="card-header">Inspection</h3>
+  <div class="card-body">
+    <p>
+      <strong>Title:</strong>
+      <%= @inspection.title %>
+    </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @inspection.title %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @inspection.description %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @inspection.description %>
-</p>
+    <p>
+      <strong>Delegated employee:</strong>
+      <%= @inspection.user.name %> <%= @inspection.user.surname %>
+    </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @inspection.user_id %>
-</p>
+    <p>
+      <strong>Devices to inspect:</strong>
+      <ol>
+        <% devices = Device.all.where(id: @inspection.device_ids) %>
+        <% devices.each do |device| %>
+        <li>
+          <%= device.name %> | <% device.model %> |
+          <% if device.room.present? %>
+            Room <%= device.room.name %> / <%= device.room.ward.name %> ward / <%= device.room.ward.floor.name %> floor / <%= device.room.ward.floor.building.name %> building
+          <% else %>
+            Hospital storage
+          <% end %>
+        <% end %>
+        </li>
+      </ol>
+    </p>
+
+    <p>
+      <strong>Completed:</strong>
+      <%= @inspection.completed %>
+    </p>
+    <% if @inspection.completed? %>
+    <p>
+      <strong>Inspection results:</strong>
+      <%= @inspection.notes %>
+    </p>
+    <% end %>
+  </div>
+</div>
+<% unless current_user.role_technic? || current_user.role_inspector?%>
 
 <%= link_to 'Edit', edit_inspection_path(@inspection) %> |
+<%= button_to 'Delete', inspection_path(@inspection), data: { confirm: "Are you sure?" }, method: :delete %>
+  <% end %>
 <%= link_to 'Back', inspections_path %>

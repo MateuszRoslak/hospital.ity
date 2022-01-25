@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   
-  resources :inspections
+  resources :inspections do
+    member do
+      get :inspect
+    end
+  end
   resources :posts
   resources :devices
   resources :buildings do

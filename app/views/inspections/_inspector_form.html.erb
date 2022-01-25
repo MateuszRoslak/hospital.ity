@@ -1,0 +1,60 @@
+<%= form_with(model: inspection) do |form| %>
+  <% if inspection.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(inspection.errors.count, "error") %> prohibited this inspection from being saved:</h2>›
+      <ul>
+        <% inspection.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <strong>Title:</strong>
+    <%= @inspection.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @inspection.description %>
+  </p>
+
+  <div class="field">
+    <strong>Devices to inspect:</strong>
+    <div class="accordion" id="accordionWards">
+      <% devices = Device.all.where(id: @inspection.device_ids) %>
+      <% counter = 1 %>
+      <% devices.each do |device| %>
+        <div class="accordion-item">
+          <h2 id="heading-ward<%= device.id %>" class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-ward<%= device.id %>" aria-expanded="false" aria-controls="collapse-ward<%= device.id %>">
+              <strong><%= counter %>. Device - <%= device.name %></strong><br/>
+            </button>
+          </h2>
+          <div id="collapse-ward<%= device.id %>" class="accordion-collapse collapse" aria-labelledby="heading-ward<%= device.id %>" data-bs-parent="#accordionWards">
+            <div class="accordion-body">
+              <% @device = device %>
+              <%= render 'device', device: @device %>
+              <label class="li"><%= check_box_tag :device_ids, device.id, false, :required => true, :name => 'inspection[device_ids][]' %> <strong>Inspected</strong></label><br/>
+            </div>
+          </div>
+        </div>
+        <% counter += 1 %>
+    <% end %>
+    </div>
+  </div><br/>
+
+  <div class="field form-group">
+    <%= form.label :notes %>
+    <%= form.text_area :notes, class: "form-control" %>
+  </div><br/>
+
+  <div class="field">
+    <%= form.hidden_field :completed, value: true %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Finish inspection" %>
+  </div>
+<% end %>

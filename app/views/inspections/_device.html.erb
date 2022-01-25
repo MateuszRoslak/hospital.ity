@@ -1,0 +1,33 @@
+<p>
+  <strong>Model:</strong>
+  <%= @device.model %>
+</p>
+
+<p>
+  <strong>Manufacturer:</strong>
+  <%= @device.manufacturer %>
+</p>
+
+<p>
+  <strong>Serial number:</strong>
+  <%= @device.serial_number %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @device.device_type %>
+</p>
+
+<p>
+  <strong>Device status:</strong>
+  <%= @device.status %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <% if @device.room.present? %>
+    Room <%= @device.room.name %> / <%= @device.room.ward.name %> ward / <%= @device.room.ward.floor.name %> floor / <%= @device.room.ward.floor.building.name %> building
+  <% else %>
+    Hospital storage
+  <% end %>
+</p><br/>
