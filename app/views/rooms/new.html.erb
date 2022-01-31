@@ -1,5 +1,8 @@
-<h1>New Room</h1>
-
-<%= render 'form', room: @room %>
-
-<%= link_to 'Back', building_floor_ward_rooms_path %>
+<div class="card">
+  <h3 class="card-header">New room / <%= @ward.name %> ward / <%= @floor.name %> floor / <%= @building.name %> building</h3>
+  <div class="card-body">
+    <%= render 'form', room: @room %>
+    <br/>
+    <%= link_to 'Back', building_floor_ward_rooms_path, class: "btn btn-outline-secondary text-dark"  %>
+  </div>
+</div>

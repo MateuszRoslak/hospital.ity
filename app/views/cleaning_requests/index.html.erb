@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Cleaning Requests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @cleaning_requests.each do |cleaning_request| %>
+      <tr>
+        <td><%= cleaning_request.title %></td>
+        <td><%= cleaning_request.description %></td>
+        <td><%= cleaning_request.user_id %></td>
+        <td><%= link_to 'Show', cleaning_request %></td>
+        <td><%= link_to 'Edit', edit_cleaning_request_path(cleaning_request) %></td>
+        <td><%= link_to 'Destroy', cleaning_request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Cleaning Request', new_cleaning_request_path %>

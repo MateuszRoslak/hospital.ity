@@ -1,6 +1,9 @@
-<h1>Editing Ward</h1>
-
-<%= render 'form', ward: @ward %>
-
-<%= link_to 'Show', building_floor_ward_path(@ward) %> |
-<%= link_to 'Back', building_floor_wards_path %>
+<div class="card">
+  <h3 class="card-header">Edit ward</h3>
+  <div class="card-body">
+    <%= render 'form', ward: @ward %><br/>
+    <%= link_to 'Back', building_floor_wards_path, class: "btn btn-outline-secondary text-dark" %>
+    |
+    <%= link_to 'Show', building_floor_ward_path(@ward), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

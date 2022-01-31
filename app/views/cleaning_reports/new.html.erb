@@ -1,0 +1,8 @@
+<div class="card">
+  <h3 class="card-header">New cleaning report</h3>
+  <div class="card-body">
+    <%= render 'form', cleaning_report: @cleaning_report %>
+    <br/>
+    <%= link_to 'Back', cleaning_reports_path, class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

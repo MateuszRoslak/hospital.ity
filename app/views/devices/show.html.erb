@@ -1,37 +1,48 @@
-<p>
-  <strong>Name:</strong>
-  <%= @device.name %>
-</p>
+<div class="card">
+  <h3 class="card-header">Device details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Name:</strong>
+      <%= @device.name %>
+    </p>
 
-<p>
-  <strong>Model:</strong>
-  <%= @device.model %>
-</p>
+    <p>
+      <strong>Model:</strong>
+      <%= @device.model %>
+    </p>
 
-<p>
-  <strong>Manufacturer:</strong>
-  <%= @device.manufacturer %>
-</p>
+    <p>
+      <strong>Serial number:</strong>
+      <%= @device.serial_number %>
+    </p>
 
-<p>
-  <strong>Type:</strong>
-  <%= @device.device_type %>
-</p>
+    <p>
+      <strong>Manufacturer:</strong>
+      <%= @device.manufacturer %>
+    </p>
 
-<p>
-  <strong>Room:</strong>
-  <% if @device.room.present? %>
-    <%= @device.room.name %>
-  <% else %>
-    None
-  <% end %>
-</p>
-<p>
-  <strong>QR code:</strong>
-<%= image_tag(@device.qr_code) %>
-</p>
+    <p>
+      <strong>Device type:</strong>
+      <%= @device.device_type %>
+    </p>
 
-
-
-<%= link_to 'Edit', edit_device_path(@device) %> |
-<%= link_to 'Back', devices_path %>
+    <p>
+      <strong>Device location:</strong>
+      <% if @device.room.present? %>
+        Room <%= @device.room.name %> / <%= @device.room.ward.name %> ward / <%= @device.room.ward.floor.name %> floor / <%= @device.room.ward.floor.building.name %> building
+    <% else %>
+        Hospital storage
+      <% end %>
+    </p>
+    <div class="card">
+      <h3 class="card-header">QR code</h3>
+        <%= image_tag(@device.qr_code, style: 'width:20%') %>
+      </div><br/>
+    <%= link_to 'Back', devices_path, class: "btn btn-outline-secondary text-dark" %>
+    |
+    <%= link_to 'Edit', edit_device_path(@device), class: "btn btn-outline-secondary text-dark" %>
+    <br/><br/>
+    <%= button_to 'Delete', devices_path(@device), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger text-light" %>
+  </div>
+  </div>
+</div>

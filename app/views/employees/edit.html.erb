@@ -1,20 +1,27 @@
-<h1>User Profile</h1>
-
-<div class="jumbotron">
-  <h1 class="display-4">
-    <%= @user.name %>
-    <%= @user.surname %>
-  </h1>
-  <p class="lead">
-    <%= "Email: " + @user.email %>
-    <br/>
-    <%= "Role: " %>
-
-  </p>
+<div class="card">
+  <h2 class="card-header">User information</h2>
+  <div class="card-body">
+    <p>
+      <strong>Full name:</strong>
+      <%= @user.name %> <%= @user.surname %>
+    </p>
+    <p>
+      <strong>Email address:</strong>
+      <%= @user.email %>
+    </p>
+    <p>
+      <strong>Account created on:</strong>
+      <%= @user.created_at.to_s(:db) %>
+    </p>
+    <p>
+      <strong>Account role:</strong>
+      <%= render 'form', user: @user %>
+    </p>
+    <div class="card">
+      <h5 class="card-header">Delete account</h5>
+      <div class="card-body">
+    <%= button_to "Delete account", employee_path(@user), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger text-light" %>
+      </div></div><br/>
+    <%= link_to 'Back', employees_path, class: "btn btn-outline-secondary text-dark" %>
+  </div>
 </div>
-
-<%= render 'form', user: @user %>
-
-<%= button_to "Delete account", employee_path(@user), data: { confirm: "Are you sure?" }, method: :delete %>
-
-<%= link_to 'Back', employees_path %>

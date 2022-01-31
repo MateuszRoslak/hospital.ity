@@ -13,12 +13,12 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "form-control" %>
   </div><br/>
 
   <div class="field">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "form-control" %>
   </div><br/>
 
   <div class="field">
@@ -39,14 +39,14 @@
                   <div class="accordion-item">
                     <h2 id="heading-room<%= room.id %>" class="accordion-header">
                       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-room<%= room.id %>" aria-expanded="false" aria-controls="collapse-room<%= room.id %>">
-                        <strong>Room <%= room.name %></strong><br/>
+                        <strong>Room <%= room.name %> | <%= room.room_type %></strong><br/>
                       </button>
                     </h2>
                     <div id="collapse-room<%= room.id %>" class="accordion-collapse collapse" aria-labelledby="heading-room<%= room.id %>" data-bs-parent="#accordionRooms-ward<%= ward.id %>">
                       <div class="accordion-body">
                         <span class="ul">
                           <% room.devices.each do |device| %>
-                            <label class="li"><%= check_box_tag :device_ids, device.id, false, :name => 'inspection[device_ids][]' %> <u><%= device.name %> <%= device.model %> <%= device.device_type %> <%= device.status %></u></label><br />
+                            <label class="li"><%= check_box_tag :device_ids, device.id, false, :name => 'inspection[device_ids][]' %> <strong><%= device.name %> | <%= device.serial_number %> | <%= device.device_type %> | <%= device.status %></strong></label><br />
                           <% end %>
                         </span>
                       </div>
@@ -69,7 +69,7 @@
           <div class="accordion-body">
             <span class="ul">
               <% Device.all.where(room_id: nil).each do |device| %>
-                <label class="li"><%= check_box_tag :device_ids, device.id, false, :name => 'inspection[device_ids][]' %> <u><%= device.name %> <%= device.model %> <%= device.device_type %> <%= device.status %></u></label><br />
+                <label class="li"><%= check_box_tag :device_ids, device.id, false, :name => 'inspection[device_ids][]' %> <strong><%= device.name %> | <%= device.serial_number %> | <%= device.device_type %> | <%= device.status %></strong></label><br/>
               <% end %>
             </span>
           </div>
@@ -82,10 +82,10 @@
     <% grouped_options_for_select = [['Inspectors', User.all.where(role: "inspector").collect {|u| [ u.name + " " + u.surname, u.id ] }]] %>
     <% grouped_options_for_select << ['Technicians', User.all.where(role: "technic").collect {|u| [ u.name + " " + u.surname, u.id ] }] %>
     <%= form.label :user_id, "Employee delegated:" %>
-    <%= form.select :user_id, grouped_options_for_select(grouped_options_for_select), {}, {class: "form-group form-select form-select-lg mb-3"} %>
+    <%= form.select :user_id, grouped_options_for_select(grouped_options_for_select), {}, {class: "form-control form-select mb-3"} %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :Submit, class: "btn btn-outline-secondary text-dark" %>
   </div>
 <% end %>

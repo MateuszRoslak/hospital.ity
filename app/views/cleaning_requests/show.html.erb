@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @cleaning_request.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @cleaning_request.description %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @cleaning_request.user_id %>
+</p>
+
+<%= link_to 'Edit', edit_cleaning_request_path(@cleaning_request) %> |
+<%= link_to 'Back', cleaning_requests_path %>

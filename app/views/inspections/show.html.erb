@@ -43,11 +43,12 @@
       <%= @inspection.notes %>
     </p>
     <% end %>
+    <% unless current_user.role_technic? || current_user.role_inspector?%>
+      <%= link_to 'Back', inspections_path, class: "btn btn-outline-secondary text-dark" %> |
+      <%= link_to 'Edit', edit_inspection_path(@inspection), class: "btn btn-outline-secondary text-dark" %> <br/><br/>
+      <%= button_to 'Delete', inspection_path(@inspection), data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger text-light" %>
+    <% else %>
+      <%= link_to 'Back', inspections_path, class: "btn btn-outline-secondary text-dark" %><br/><br/>
+  <% end %>
   </div>
 </div>
-<% unless current_user.role_technic? || current_user.role_inspector?%>
-
-<%= link_to 'Edit', edit_inspection_path(@inspection) %> |
-<%= button_to 'Delete', inspection_path(@inspection), data: { confirm: "Are you sure?" }, method: :delete %>
-  <% end %>
-<%= link_to 'Back', inspections_path %>

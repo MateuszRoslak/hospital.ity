@@ -1,13 +1,22 @@
-<p>
-  <strong>Name:</strong>
-  <%= @floor.name %>
-</p>
+<div class="card">
+  <h3 class="card-header">Floor details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Floor name:</strong>
+      <%= @floor.name %>
+    </p>
 
-<p>
-  <strong>Building:</strong>
-  <%= @floor.building_id %>
-</p>
+    <p>
+      <strong>Building:</strong>
+      <%= @floor.building.name %>
+    </p>
 
-  <%= link_to 'Destroy', building_floor_path(@building, @floor), method: :delete, data: { confirm: 'Are you sure?' } %>
-<%= link_to 'Edit', edit_building_floor_path(@building, @floor) %> |
-<%= link_to 'Back', building_floors_path %>
+    <p>
+      <strong>Wards count:</strong>
+      <%= @floor.wards.count %>
+    </p>
+
+    <%= link_to 'Back', building_floors_path, class: "btn btn-outline-secondary text-dark" %> |
+    <%= link_to 'Edit', edit_building_floor_path(@building, @floor), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

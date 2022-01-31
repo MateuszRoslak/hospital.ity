@@ -13,8 +13,8 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <%= form.text_field :name, class: "form-control" %>
+  </div><br/>
 
   <div class="field">
     <%= form.label :room_type %>
@@ -26,10 +26,10 @@
                       ['Office', 'office'],
                       ['Surgery room', 'surgery'],
                       ['Post surgery room', 'post_surgery'],
-                    ], {}, {class: "form-group form-select form-select-lg mb-3"} %>
-  </div>
+                    ], {}, {class: "form-control form-select"} %>
+  </div><br/>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :Submit, class: "btn btn-outline-secondary text-dark" %>
   </div>
 <% end %>

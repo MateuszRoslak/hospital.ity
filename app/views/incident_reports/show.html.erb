@@ -1,0 +1,32 @@
+<div class="card">
+  <h3 class="card-header">Incident report details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Title:</strong>
+      <%= @incident_report.title %>
+    </p>
+
+    <p>
+      <strong>Report:</strong>
+      <%= @incident_report.description %>
+    </p>
+
+    <p>
+      <strong>Incident place:</strong>
+      <% if @incident_report.room.present? %>
+      <% room = Room.all.find(@incident_report.room) %>
+        <%= "Room " + room.name + " / " + room.ward.name + " ward / " + room.ward.floor.name + " floor / " + room.ward.floor.building.name + " building"%>
+        <% else %>
+        -
+      <% end %>
+    </p>
+
+    <p>
+      <strong>Reported by:</strong>
+      <%= @incident_report.user.name %> <%= @incident_report.user.surname %>
+    </p>
+
+    <%= link_to 'Back', incident_reports_path, class: "btn btn-outline-secondary text-dark" %> |
+    <%= link_to 'Edit', edit_incident_report_path(@incident_report), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

@@ -1,21 +1,36 @@
-<p>
-  <strong>Name:</strong>
-  <%= @room.name %>
-</p>
+<div class="card">
+  <h3 class="card-header">Room details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Room name:</strong>
+      <%= @room.name %>
+    </p>
 
-<p>
-  <strong>Ward:</strong>
-  <%= @ward.name %>
-</p>
+    <p>
+      <strong>Room type:</strong>
+      <%= @room.room_type %>
+    </p>
 
-<p>
-  <strong>Last cleaned:</strong>
-  <%= @room.last_cleaned %>
-</p>
+    <p>
+      <strong>Room location:</strong>
+      <%= @ward.name %> ward / <%= @floor.name %> floor / <%= @building.name %> building
+    </p>
 
-<p>
-  <strong>Last cleaned by:</strong>
-  <%= @room.last_cleaned_by %>
-</p>
-<%= link_to 'Edit', edit_building_floor_ward_room_path(@building, @floor, @ward, @room) %> |
-<%= link_to 'Back', building_floor_ward_rooms_path %>
+    <p>
+      <strong>Last cleaned:</strong>
+      <%= @room.last_cleaned.to_s(:db) %>
+    </p>
+
+    <p>
+      <strong>Last cleaned by:</strong>
+      <% if @room.last_cleaned_by.present? %>
+        <% usr = User.find(@room.last_cleaned_by) %>
+        <%= usr.name %> <%= usr.surname %>
+      <% else %>
+        -
+      <% end %>
+    </p>
+    <%= link_to 'Back', building_floor_ward_rooms_path, class: "btn btn-outline-secondary text-dark" %> |
+    <%= link_to 'Edit', edit_building_floor_ward_room_path(@building, @floor, @ward, @room), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

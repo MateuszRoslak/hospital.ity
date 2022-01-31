@@ -1,0 +1,38 @@
+<%= form_with(model: incident_report) do |form| %>
+  <% if incident_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(incident_report.errors.count, "error") %> prohibited this incident_report from being saved:</h2>
+
+      <ul>
+        <% incident_report.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div><br/>
+
+  <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div><br/>
+
+  <div class="field">
+    <% grouped_options_for_select = Ward.all.collect {|w| [w.name + " ward / " + w.floor.name + " floor / " + w.floor.building.name + " building" ,  w.rooms.collect {|r| [ "Room " + r.name, r.id ] }]} %>
+    <% grouped_options_for_select << ['None', [['Other place', nil]]] %>
+    <%= form.label :room %>
+    <%= form.select :room, grouped_options_for_select(grouped_options_for_select), {}, {class: "form-group form-select form-select-lg mb-3"} %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :user_id, value: current_user.id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit :Submit, class: "btn btn-outline-secondary text-dark" %>
+  </div>
+<% end %>

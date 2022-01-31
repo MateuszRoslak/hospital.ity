@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   
+  resources :cleaning_requests
+  resources :cleaning_reports
+  resources :incident_reports
   resources :inspections do
     member do
       get :inspect

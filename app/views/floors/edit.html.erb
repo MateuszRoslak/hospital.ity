@@ -1,6 +1,9 @@
-<h1>Editing Floor</h1>
-
-<%= render 'form', floor: @floor %>
-
-<%= link_to 'Show', building_floor_path(@building, @floor) %> |
-<%= link_to 'Back', building_floors_path %>
+<div class="card">
+  <h3 class="card-header">Edit floor</h3>
+  <div class="card-body">
+    <%= render 'form', floor: @floor %><br/>
+    <%= link_to 'Back', building_floors_path, class: "btn btn-outline-secondary text-dark" %>
+    |
+    <%= link_to 'Show', building_floor_path(@building, @floor), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

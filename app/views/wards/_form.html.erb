@@ -2,7 +2,6 @@
   <% if ward.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(ward.errors.count, "error") %> prohibited this ward from being saved:</h2>
-
       <ul>
         <% ward.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -13,10 +12,10 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <%= form.text_field :name, class: "form-control" %>
+  </div><br/>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit :Submit, class: "btn btn-outline-secondary text-dark" %>
   </div>
 <% end %>

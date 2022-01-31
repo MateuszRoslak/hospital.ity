@@ -1,0 +1,40 @@
+<div class="card">
+  <h3 class="card-header">Incident Reports</h3>
+  <div class="card-body">
+    <%= search_form_for @q, url: incident_reports_path do |f| %>
+      <%= f.search_field :title_or_description_cont, placeholder: "Search phrase..." %>
+      <%= f.submit name: '' %>
+    <% end %>
+    <br/>
+    <% if current_user.role_guard? %>
+      <button type="button" class="btn btn-secondary btn-sm"><%= link_to 'New incident report', new_incident_report_path, :class => "btn" %></button>
+      <br/>
+      <br/>
+    <% end %>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="table-dark">
+          <th><%= sort_link(@q, :name, "Title",{}, { class: "link-light" }) %></th>
+          <th><%= sort_link(@q, :room_id, "Incident place",{}, { class: "link-light" }) %></th>
+          <th><%= sort_link(@q, :user_id, "Reported by",{}, { class: "link-light" }) %></th>
+          <th><%= sort_link(@q, :created_at, "Reported on",{}, { class: "link-light" }) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @incidents.each do |incident_report| %>
+          <tr>
+            <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to incident_report.title, incident_report_path(incident_report), :class => "btn"  %></button></td>
+            <td><% if incident_report.room.present? %>
+                <% room = Room.all.find(incident_report.room) %>
+                <%= "Room " + room.name + " / " + room.ward.name + " ward / " + room.ward.floor.name + " floor / " + room.ward.floor.building.name + " building"%>
+              <% else %>
+                -
+              <% end %></td>
+            <td><%= incident_report.user.name %> <%= incident_report.user.surname %></td>
+            <td><%= incident_report.created_at.to_s(:db) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -2,6 +2,7 @@
   <h3 class="card-header">New inspection</h3>
   <div class="card-body">
     <%= render 'form', inspection: @inspection %>
+    <br/>
+    <%= link_to 'Back', inspections_path, class: "btn btn-outline-secondary text-dark" %>
   </div>
 </div>
-<%= link_to 'Back', inspections_path %>

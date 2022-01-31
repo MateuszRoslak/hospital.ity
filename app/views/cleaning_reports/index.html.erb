@@ -1,0 +1,31 @@
+<div class="card">
+  <h3 class="card-header">Cleaning reports</h3>
+  <div class="card-body">
+    <%= search_form_for @q, url: cleaning_reports_path do |f| %>
+      <%= f.search_field :title_cont, placeholder: "Search phrase..." %>
+      <%= f.submit name: '' %>
+    <% end %>
+    <br/>
+    <button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to 'New report', new_cleaning_report_path, :class => "btn" %></button>
+    <br/>
+    <br/>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="table-dark">
+          <th><%= sort_link(@q, :title, "Title",{}, { class: "link-light" }) %></th>
+          <th>Description</th>
+          <th>User</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cleaning_reports.each do |cleaning_report| %>
+          <tr>
+            <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to cleaning_report.title, cleaning_report, :class => "btn" %></button></td>
+            <td><%= cleaning_report.description %></td>
+            <td><%= cleaning_report.user.name %> <%= cleaning_report.user.surname %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

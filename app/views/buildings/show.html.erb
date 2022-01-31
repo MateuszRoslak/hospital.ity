@@ -1,7 +1,16 @@
-<p>
-  <strong>Name:</strong>
-  <%= @building.name %>
-</p>
-
-<%= link_to 'Edit', edit_building_path(@building) %> |
-<%= link_to 'Back', buildings_path %>
+<div class="card">
+  <h3 class="card-header">Building details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Building name:</strong>
+      <%= @building.name %>
+    </p>
+    <p>
+      <strong>Floors count:</strong>
+      <%= @building.floors.count %>
+    </p>
+    <%= link_to 'Back', buildings_path, class: "btn btn-outline-secondary text-dark" %>
+    |
+    <%= link_to 'Edit', edit_building_path(@building), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

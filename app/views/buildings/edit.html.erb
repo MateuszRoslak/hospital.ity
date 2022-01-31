@@ -1,6 +1,9 @@
-<h1>Editing Building</h1>
-
-<%= render 'form', building: @building %>
-
-<%= link_to 'Show', @building %> |
-<%= link_to 'Back', buildings_path %>
+<div class="card">
+  <h3 class="card-header">Edit building</h3>
+  <div class="card-body">
+    <%= render 'form', building: @building, class: "btn btn-outline-secondary text-dark" %><br/>
+    <%= link_to 'Back', buildings_path, class: "btn btn-outline-secondary text-dark" %>
+    |
+    <%= link_to 'Show', @building, class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

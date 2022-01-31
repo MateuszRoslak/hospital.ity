@@ -1,0 +1,22 @@
+<div class="card">
+  <h3 class="card-header">Cleaning report details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Title:</strong>
+      <%= @cleaning_report.title %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @cleaning_report.description %>
+    </p>
+
+    <p>
+      <strong>Reported by:</strong>
+      <%= @cleaning_report.user.name %> <%= @cleaning_report.user.surname %>
+    </p>
+
+    <%= link_to 'Back', cleaning_reports_path, class: "btn btn-outline-secondary text-dark" %> |
+    <%= link_to 'Edit', edit_cleaning_report_path(@cleaning_report), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>
