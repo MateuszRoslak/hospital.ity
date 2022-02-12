@@ -1,6 +1,10 @@
-<h1>Editing Cleaning Request</h1>
-
-<%= render 'form', cleaning_request: @cleaning_request %>
-
-<%= link_to 'Show', @cleaning_request %> |
-<%= link_to 'Back', cleaning_requests_path %>
+<div class="card">
+  <h3 class="card-header">Edit cleaning request</h3>
+  <div class="card-body">
+    <%= render 'form', cleaning_request: @cleaning_request %>
+    <br/>
+    <%= link_to 'Back', cleaning_requests_path, class: "btn btn-outline-secondary text-dark" %>
+    |
+    <%= link_to 'Show', @cleaning_request, class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

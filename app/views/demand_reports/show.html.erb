@@ -1,0 +1,33 @@
+<div class="card">
+  <h3 class="card-header">Demand Report details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Title:</strong>
+      <%= @demand_report.title %>
+    </p>
+
+    <p>
+      <strong>Description:</strong>
+      <%= @demand_report.description %>
+    </p>
+
+    <p>
+      <strong>Reported by:</strong>
+      <%= @demand_report.user.name %> <%= @demand_report.user.surname %>
+    </p>
+
+    <p>
+      <strong>Reported on:</strong>
+      <%= @demand_report.created_at.to_s(:db) %>
+    </p>
+
+    <% if @demand_report.picture.attached? %>
+      <strong>Attached picture:</strong>
+      <p>
+        <%= link_to image_tag(@demand_report.picture, style: 'width:50%'), @demand_report.picture %>
+      </p>
+    <% end %>
+    <%= link_to 'Back', demand_reports_path, class: "btn btn-outline-secondary text-dark" %> |
+    <%= link_to 'Edit', edit_demand_report_path(@demand_report), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

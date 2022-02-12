@@ -14,7 +14,7 @@
                                                   ['Extinguisher', 6],
                                                   ['Defibrillator', 7]
                                                 ])%>
-      <%= f.submit name: '' %>
+      <%= f.submit name: '', class: "btn btn-outline-secondary btn-sm mb-1 text-dark" %>
     <% end %>
     <br/>
     <button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to 'Add Device', new_device_path, :class => "btn" %></button>

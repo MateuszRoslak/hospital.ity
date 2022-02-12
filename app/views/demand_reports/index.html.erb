@@ -1,0 +1,47 @@
+<div class="card">
+  <h3 class="card-header">Demand reports</h3>
+  <div class="card-body">
+    <%= search_form_for @q, url: demand_reports_path do |f| %>
+      <%= f.search_field :title_or_description_cont, placeholder: "Search phrase..." %>
+      <%= f.select :status_eq, options_for_select([
+                                                       ['Any status...', ''],
+                                                       ['Awaiting', 0],
+                                                       ['Accepted', 1],
+                                                       ['Canceled', 2],
+                                                       ['Completed', 3]
+                                                     ])%>
+      <%= f.submit name: '', class: "btn btn-outline-secondary btn-sm mb-1 text-dark" %>
+    <% end %>
+    <br/>
+    <button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to 'New report', new_demand_report_path, :class => "btn" %></button>
+    <br/>
+    <br/>
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr class="table-dark">
+        <th><%= sort_link(@q, :title, "Title",{}, { class: "link-light" }) %></th>
+        <% if current_user.role_admin? || current_user.role_office? %>
+          <th><%= sort_link(@q, :user_id, "Demanded by",{}, { class: "link-light" }) %></th>
+        <% end %>
+        <th><%= sort_link(@q, :created_at, "Demanded on",{}, { class: "link-light" }) %></th>
+        <th><%= sort_link(@q, :status, "Status",{}, { class: "link-light" }) %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @demand_reports.each do |demand_report| %>
+          <tr>
+            <% if current_user.role_admin? || current_user.role_office? %>
+              <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to demand_report.title, review_demand_report_path(demand_report), :class => "btn" %></button></td>
+              <td><%= demand_report.user.name %> <%= demand_report.user.surname %></td>
+            <% else %>
+              <td><button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to demand_report.title, demand_report_path(demand_report), :class => "btn" %></button></td>
+            <% end %>
+            <td><%= demand_report.created_at.to_s(:db) %></td>
+            <td><%= demand_report.status %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>

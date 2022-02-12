@@ -1,0 +1,55 @@
+<%= form_with(model: demand_report) do |form| %>
+  <% if demand_report.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(demand_report.errors.count, "error") %> prohibited this demand_report from being saved:</h2>
+
+      <ul>
+        <% demand_report.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <strong>Title:</strong>
+    <%= @demand_report.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @demand_report.description %>
+  </p>
+
+  <% if @demand_report.picture.attached? %>
+    <strong>Attached picture:</strong>
+    <p>
+      <%= link_to image_tag(@demand_report.picture, style: 'width:50%'), @demand_report.picture %>
+    </p>
+  <% end %>
+
+  <p>
+    <strong>Reported by:</strong>
+    <%= @demand_report.user.name %> <%= @demand_report.user.surname %>
+  </p>
+
+  <p>
+    <strong>Reported on:</strong>
+    <%= @demand_report.created_at.to_s(:db) %>
+  </p>
+
+  <div class="field">
+    <strong>Status:</strong>
+    <%= form.select :status,
+                    [
+                      ['Awaits review', 'awaits'],
+                      ['Accepted', 'accepted'],
+                      ['Canceled', 'canceled'],
+                      ['Completed', 'completed']
+                    ], {}, {class: "form-control form-select"} %>
+  </div><br/>
+
+  <div class="actions">
+    <%= form.submit :Submit, class: "btn btn-outline-secondary text-dark" %>
+  </div>
+<% end %>

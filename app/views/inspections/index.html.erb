@@ -4,11 +4,11 @@
     <%= search_form_for @q, url: inspections_path do |f| %>
       <%= f.search_field :title_or_description_cont, placeholder: "Search phrase..." %>
       <%= f.select :completed_eq, options_for_select([
-                                                         ['Any state...', ''],
+                                                          ['Any state...', ''],
                                                          ['Completed', true],
                                                          ['Not completed', false]
                                                        ])%>
-      <%= f.submit name: '' %>
+      <%= f.submit name: '', class: "btn btn-outline-secondary btn-sm mb-1 text-dark" %>
     <% end %>
     <br/>
     <% unless current_user.role_technic? || current_user.role_inspector?%>

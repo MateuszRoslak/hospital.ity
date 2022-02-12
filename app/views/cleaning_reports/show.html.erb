@@ -16,7 +16,25 @@
       <%= @cleaning_report.user.name %> <%= @cleaning_report.user.surname %>
     </p>
 
-    <%= link_to 'Back', cleaning_reports_path, class: "btn btn-outline-secondary text-dark" %> |
-    <%= link_to 'Edit', edit_cleaning_report_path(@cleaning_report), class: "btn btn-outline-secondary text-dark" %>
+    <p>
+      <strong>Reported on:</strong>
+      <%= @cleaning_report.created_at.to_s(:db) %>
+    </p>
+
+    <p>
+      <strong>Cleaned rooms:</strong>
+      <ol>
+        <% rooms = Room.all.where(id: @cleaning_report.room_ids) %>
+        <% rooms.each do |room| %>
+          <li>
+            <strong>Room <%= room.name %> </strong> / <%= room.ward.name %> ward / <%= room.ward.floor.name %> floor / <%= room .ward.floor.building.name %> building
+          </li>
+        <% end %>
+      </ol>
+    </p>
+    <%= link_to 'Back', cleaning_reports_path, class: "btn btn-outline-secondary text-dark" %>
+    <% if current_user.id == @cleaning_report.user.id %>
+      | <%= link_to 'Edit', edit_cleaning_report_path(@cleaning_report), class: "btn btn-outline-secondary text-dark" %>
+    <% end %>
   </div>
 </div>

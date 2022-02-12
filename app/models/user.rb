@@ -13,6 +13,7 @@ class User < ApplicationRecord
   validates :surname, presence: true
   
   has_many :inspections
+  has_many :cleaning_requests
 
   def set_default_role
     self.role ||= :admin

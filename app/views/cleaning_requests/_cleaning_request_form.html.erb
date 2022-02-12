@@ -1,0 +1,45 @@
+<%= form_with(model: cleaning_request) do |form| %>
+  <% if cleaning_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(cleaning_request.errors.count, "error") %> prohibited this cleaning request from being saved:</h2>›
+      <ul>
+        <% cleaning_request.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <strong>Title:</strong>
+    <%= @cleaning_request.title %>
+  </p>
+
+  <p>
+    <strong>Description:</strong>
+    <%= @cleaning_request.description %>
+  </p>
+
+  <div class="field">
+    <strong>Cleaned rooms:</strong>
+    <ol>
+    <% rooms = Room.all.where(id: @cleaning_request.room_ids) %>
+    <% rooms.each do |room| %>
+        <li><strong><%= check_box_tag :room_ids, room.id, false, :required => true, :name => 'inspection[room_ids][]', :class => "mb-3" %> - Room <%= room.name %> / <%= room.ward.name %> ward</strong></li>
+    <% end %>
+    </ol>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :completed, value: true %>
+  </div>
+
+  <p>
+    <strong>Information:</strong><br/>
+    Completing this request will automatically generate cleaning report.
+  </p>
+
+  <div class="actions">
+    <%= form.submit "Request completed", class: "btn btn-outline-secondary text-dark" %>
+  </div>
+<% end %>

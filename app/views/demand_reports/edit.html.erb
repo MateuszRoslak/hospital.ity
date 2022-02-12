@@ -1,0 +1,10 @@
+<div class="card">
+  <h3 class="card-header">Edit demand report</h3>
+  <div class="card-body">
+    <%= render 'form', demand_report: @demand_report %>
+    <br/>
+    <%= link_to 'Back', demand_reports_path, class: "btn btn-outline-secondary text-dark" %>
+    |
+    <%= link_to 'Show', @demand_report, class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

@@ -4,29 +4,36 @@
   <% if current_user.role_inactive? %>
     <h3>Your account is deactivated, please contact system administrator.</h3>
   <% end %>
+  <% if current_user.role_admin? %>
+    <%= render 'stats' %>
+  <% end %>
 <% else %>
   <h1>Hello, please sign in or sign up to use the system.</h1>
-<% end %>
+<% end %><br/>
+
 <br/>
 <div class="card">
   <h3 class="card-header">System announcements</h3>
   <div class="card-body">
-<div class="accordion" id="accordionNews">
+    <div class="accordion" id="accordionNews">
   <% @posts.all.order("created_at DESC").each do |post| %>
     <div class="accordion-item">
       <h2 id="heading<%= post.id %>" class="accordion-header">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= post.id %>" aria-expanded="false" aria-controls="collapse<%= post.id %>">
           <strong><%= post.title %> | <%= post.created_at.to_s(:short  ) %></strong><br/>
         </button>
-    </h2>
-      <div id="collapse<%= post.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= post.id %>" data-bs-parent="#accordionNews">
-      <div class="accordion-body">
-        <%= post.message %><br/><br/><br/>
-        <u><strong><%= post.user.name %> <%= post.user.surname %></strong>, <%= post.created_at.to_s(:db) %></u>
+      </h2>
+        <div id="collapse<%= post.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= post.id %>" data-bs-parent="#accordionNews">
+        <div class="accordion-body">
+          <% if post.thumbnail.attached? %>
+            <%= link_to image_tag(post.thumbnail, style: 'width:50%'), post.thumbnail %><br/><br/>
+          <% end %>
+          <%= post.message %><br/><br/><br/>
+          <u><strong><%= post.user.name %> <%= post.user.surname %></strong>, <%= post.created_at.to_s(:db) %></u>
+        </div>
       </div>
     </div>
+  <% end %>
   </div>
-<% end %>
-</div>
   </div>
-</div>
+</div><br/><br/>

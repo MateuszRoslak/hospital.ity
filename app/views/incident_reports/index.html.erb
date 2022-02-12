@@ -3,7 +3,7 @@
   <div class="card-body">
     <%= search_form_for @q, url: incident_reports_path do |f| %>
       <%= f.search_field :title_or_description_cont, placeholder: "Search phrase..." %>
-      <%= f.submit name: '' %>
+      <%= f.submit name: '', class: "btn btn-outline-secondary btn-sm mb-1 text-dark" %>
     <% end %>
     <br/>
     <% if current_user.role_guard? %>

@@ -18,7 +18,11 @@
 
     <p>
       <strong>Last cleaned:</strong>
-      <%= @room.last_cleaned.to_s(:db) %>
+      <% if @room.last_cleaned.present? %>
+        <%= @room.last_cleaned.to_s(:db) %>
+      <% else %>
+        -
+      <% end %>
     </p>
 
     <p>

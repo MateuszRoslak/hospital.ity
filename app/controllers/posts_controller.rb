@@ -58,7 +58,7 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :message, :public, :user_id)
+      params.require(:post).permit(:title, :message, :public, :user_id, :thumbnail)
     end
 
   def correct_user

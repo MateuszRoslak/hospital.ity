@@ -1,19 +1,34 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+  <h3 class="card-header">Cleaning request details</h3>
+  <div class="card-body">
+    <p>
+      <strong>Title:</strong>
+      <%= @cleaning_request.title %>
+    </p>
 
-<p>
-  <strong>Title:</strong>
-  <%= @cleaning_request.title %>
-</p>
+    <p>
+      <strong>Description:</strong>
+      <%= @cleaning_request.description %>
+    </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @cleaning_request.description %>
-</p>
+    <p>
+      <strong>Employee delegated:</strong>
+      <%= @cleaning_request.user.name %> <%= @cleaning_request.user.surname %>
+    </p>
 
-<p>
-  <strong>User:</strong>
-  <%= @cleaning_request.user_id %>
-</p>
+    <p>
+      <strong>Rooms to be cleaned:</strong>
+    <ol>
+      <% rooms = Room.all.where(id: @cleaning_request.room_ids) %>
+      <% rooms.each do |room| %>
+        <li>
+          <strong>Room <%= room.name %> </strong> / <%= room.ward.name %> ward / <%= room.ward.floor.name %> floor / <%= room .ward.floor.building.name %> building
+        </li>
+      <% end %>
+    </ol>
+    </p>
 
-<%= link_to 'Edit', edit_cleaning_request_path(@cleaning_request) %> |
-<%= link_to 'Back', cleaning_requests_path %>
+    <%= link_to 'Back', cleaning_requests_path, class: "btn btn-outline-secondary text-dark" %> |
+    <%= link_to 'Edit', edit_cleaning_request_path(@cleaning_request), class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>

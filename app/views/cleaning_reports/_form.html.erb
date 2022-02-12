@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= form.label :title %>
-    <%= form.text_field :title, class: "form-control" %>
+    <%= form.text_field :title, value: "Cleaning report ", class: "form-control" %>
   </div><br/>
 
   <div class="field">
@@ -35,7 +35,7 @@
             <div class="accordion-body">
               <div class="accordion" id="accordionRooms-ward<%= ward.id %>">
                 <% ward.rooms.each do |room| %>
-                   <label class="li"><%= check_box_tag :room_ids, room.id, false, :name => 'cleaning_report[room_ids][]' %> <strong>Room <%= room.name %> | <%= room.room_type %></strong></label><br />
+                   <label class="li"><%= check_box_tag :room_ids, room.id, false, :name => 'cleaning_report[room_ids][]', :class => "mb-3" %> <strong>Room <%= room.name %> | <%= room.room_type %> | Last cleaned: <%= room.last_cleaned.present? ? room.last_cleaned.to_s(:db) : "-" %></strong></label><br />
                 <% end %>
               </div>
             </div>
@@ -44,7 +44,6 @@
       <% end %>
     </div>
   </div><br/>
-
 
   <div class="field">
     <%= form.hidden_field :user_id, value: current_user.id %>

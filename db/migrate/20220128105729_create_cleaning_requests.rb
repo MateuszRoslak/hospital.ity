@@ -5,8 +5,9 @@ class CreateCleaningRequests < ActiveRecord::Migration[6.1]
       t.text :description
       t.references :user, null: false, foreign_key: true
       t.integer :room_ids, array: true, default: []
-      t.integer :employee_id
-      
+      t.boolean :completed, default: false
+      t.integer :cleaning_report_id
+
       t.timestamps
     end
   end

@@ -1,0 +1,2 @@
+module DemandReportsHelper
+end

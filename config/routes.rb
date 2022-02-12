@@ -1,6 +1,15 @@
 Rails.application.routes.draw do
   
-  resources :cleaning_requests
+  resources :demand_reports do
+    member do
+      get :review
+    end
+  end
+  resources :cleaning_requests do
+  member do
+    get :clean
+  end
+end
   resources :cleaning_reports
   resources :incident_reports
   resources :inspections do

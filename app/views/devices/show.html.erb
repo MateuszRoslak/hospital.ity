@@ -30,14 +30,15 @@
       <strong>Device location:</strong>
       <% if @device.room.present? %>
         Room <%= @device.room.name %> / <%= @device.room.ward.name %> ward / <%= @device.room.ward.floor.name %> floor / <%= @device.room.ward.floor.building.name %> building
-    <% else %>
+      <% else %>
         Hospital storage
       <% end %>
     </p>
     <div class="card">
       <h3 class="card-header">QR code</h3>
-        <%= image_tag(@device.qr_code, style: 'width:20%') %>
-      </div><br/>
+        <%=  %>
+        <%= link_to image_tag(@device.qr_code, style: 'width:20%'), @device.qr_code %>
+    </div><br/>
     <%= link_to 'Back', devices_path, class: "btn btn-outline-secondary text-dark" %>
     |
     <%= link_to 'Edit', edit_device_path(@device), class: "btn btn-outline-secondary text-dark" %>

@@ -1,11 +1,18 @@
 class CleaningRequestsController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user
-  before_action :set_cleaning_request, only: %i[ show edit update destroy ]
+  before_action :set_cleaning_request, only: %i[ show edit update destroy clean ]
 
   def index
-    @q = CleaningRequest.all.ransack(params[:q])
+    if current_user.role_janitor?
+      @q = CleaningRequest.all.where(user_id: current_user.id).ransack(params[:q])
+    else
+      @q = CleaningRequest.all.ransack(params[:q])
+    end
     @cleaning_requests = @q.result(distinct: true).paginate(page: params[:page], per_page: params[:per_page])
+  end
+
+  def clean
   end
 
   def show
@@ -58,11 +65,11 @@ class CleaningRequestsController < ApplicationController
     end
 
     def cleaning_request_params
-      params.require(:cleaning_request).permit(:title, :description, :user_id)
+      params.require(:cleaning_request).permit(:title, :description, :user_id, :completed, :room_ids => [])
     end
 
   def correct_user
-    unless current_user.role_admin? || current_user.role_nurse? || current_user.role_doctor?
+    unless current_user.role_admin? || current_user.role_nurse? || current_user.role_doctor? || current_user.role_janitor?
       redirect_to root_path, notice: "You are not authorized!"
     end
   end

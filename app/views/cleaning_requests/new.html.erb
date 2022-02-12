@@ -1,5 +1,8 @@
-<h1>New Cleaning Request</h1>
-
-<%= render 'form', cleaning_request: @cleaning_request %>
-
-<%= link_to 'Back', cleaning_requests_path %>
+<div class="card">
+  <h3 class="card-header">New cleaning request</h3>
+  <div class="card-body">
+    <%= render 'form', cleaning_request: @cleaning_request %>
+    <br/>
+    <%= link_to 'Back', cleaning_requests_path, class: "btn btn-outline-secondary text-dark" %>
+  </div>
+</div>
