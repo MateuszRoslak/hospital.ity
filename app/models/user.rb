@@ -14,6 +14,7 @@ class User < ApplicationRecord
   
   has_many :inspections
   has_many :cleaning_requests
+  has_many :posts, dependent: :destroy
 
   def set_default_role
     self.role ||= :inactive
