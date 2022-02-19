@@ -25,10 +25,11 @@
       </h2>
         <div id="collapse<%= post.id %>" class="accordion-collapse collapse" aria-labelledby="heading<%= post.id %>" data-bs-parent="#accordionNews">
         <div class="accordion-body">
+          <%= post.message %><br/><br/>
           <% if post.thumbnail.attached? %>
-            <%= link_to image_tag(post.thumbnail, style: 'width:50%'), post.thumbnail %><br/><br/>
+            <%= link_to image_tag(post.thumbnail, style: 'width:30%'), post.thumbnail %><br/><br/>
           <% end %>
-          <%= post.message %><br/><br/><br/>
+          <br/>gp
           <u><strong><%= post.user.name %> <%= post.user.surname %></strong>, <%= post.created_at.to_s(:db) %></u>
         </div>
       </div>
