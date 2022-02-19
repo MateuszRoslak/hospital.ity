@@ -16,6 +16,6 @@ class User < ApplicationRecord
   has_many :cleaning_requests
 
   def set_default_role
-    self.role ||= :admin
+    self.role ||= :inactive
   end
 end
