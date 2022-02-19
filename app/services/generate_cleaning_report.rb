@@ -1,4 +1,4 @@
-£class GenerateCleaningReport < ApplicationService
+class GenerateCleaningReport < ApplicationService
   attr_reader :room_ids, :user_id
 
   def initialize(title, description, room_ids, user_id)
