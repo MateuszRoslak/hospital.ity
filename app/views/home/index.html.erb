@@ -29,7 +29,7 @@
           <% if post.thumbnail.attached? %>
             <%= link_to image_tag(post.thumbnail, style: 'width:30%'), post.thumbnail %><br/><br/>
           <% end %>
-          <br/>gp
+          <br/>
           <u><strong><%= post.user.name %> <%= post.user.surname %></strong>, <%= post.created_at.to_s(:db) %></u>
         </div>
       </div>
