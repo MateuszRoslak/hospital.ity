@@ -7,7 +7,7 @@
     <% end %>
     <br/>
     <% if current_user.role_guard? %>
-      <button type="button" class="btn btn-secondary btn-sm"><%= link_to 'New incident report', new_incident_report_path, :class => "btn" %></button>
+      <button type="button" class="btn btn-outline-secondary btn-sm"><%= link_to 'New incident report', new_incident_report_path, :class => "btn" %></button>
       <br/>
       <br/>
     <% end %>

@@ -60,7 +60,7 @@
   </div><br/>
 
   <div class="field">
-    <% grouped_options_for_select = Ward.all.collect {|w| [w.name + " ward / " + w.floor.name + " floor / " + w.floor.building.name + " building" ,  w.rooms.collect {|r| [ "Room " + r.name, r.id ] }]} %>
+    <% grouped_options_for_select = Ward.all.collect {|w| [w.name + " ward / " + w.floor.name + " floor / " + w.floor.building.name + " building" ,  w.rooms.collect {|r| [ "Room " + r.name + " | " + r.room_type, r.id ] }]} %>
     <% grouped_options_for_select << ['None', [['Storage', nil]]] %>
     <%= form.label :room_id %>
     <%= form.select :room_id, grouped_options_for_select(grouped_options_for_select), {}, {class: "form-control form-select"} %>
