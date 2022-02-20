@@ -42,7 +42,13 @@
             <% end %>
             <td><%= inspection.created_at.to_s(:db) %></td>
             <td><%= inspection.completed %></td>
-            <td><%= inspection.created_at.to_s(:db) %></td>
+            <td>
+              <% if inspection.completed? %>
+                <%= inspection.updated_at.to_s(:db) %>
+              <% else %>
+                -
+              <% end %>
+            </td>
           </tr>
         <% end %>
       </tbody>
