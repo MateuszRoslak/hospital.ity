@@ -4,7 +4,6 @@ Rails.application.routes.draw do
   resources :employees
   resources :posts
   resources :devices
-  resources :demand_reports do
   resources :cleaning_reports
   resources :incident_reports
   resources :buildings do
@@ -14,7 +13,8 @@ Rails.application.routes.draw do
       end
     end
   end
-  member do
+  resources :demand_reports do
+    member do
       get :review
     end
   end
