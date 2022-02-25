@@ -27,6 +27,11 @@
     </p>
 
     <p>
+      <strong>Device status:</strong>
+      <%= @device.status %>
+    </p>
+
+    <p>
       <strong>Device location:</strong>
       <% if @device.room.present? %>
         Room <%= @device.room.name %> / <%= @device.room.ward.name %> ward / <%= @device.room.ward.floor.name %> floor / <%= @device.room.ward.floor.building.name %> building

@@ -67,7 +67,7 @@ class DevicesController < ApplicationController
     end
 
     def correct_user
-      unless current_user.role_admin? || urrent_user.role_technic? ||urrent_user.role_inspector? ||urrent_user.role_office?
+      unless current_user.role_admin? || current_user.role_technic? || current_user.role_inspector? || current_user.role_office?
         redirect_to root_path, notice: "You are not authorized!"
       end
     end
